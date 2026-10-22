@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vehicle Rental Frontend</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Vehicle Rental System</h1>
+    
+    <!-- Tabs like terminal menu -->
+    <div class="tab-buttons">
+        <button onclick="showTab('available')" class="tab-button active">Available Vehicles</button>
+        <button onclick="showTab('rented')" class="tab-button">Rented Vehicles</button>
+        <button onclick="showTab('all')" class="tab-button">All Vehicles</button>
+    </div>
+    
+    <!-- Tab panels -->
+    <div id="tab-content">
+        <div id="available-tab" class="tab-panel">
+            <table id="vehiclesTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Rent/Day</th>
+                        <th>Extra</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+        
+        <div id="rented-tab" class="tab-panel" style="display: none;">
+            <h3>Rented Data (Report)</h3>
+            <table id="rentedTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="rentedBody"></tbody>
+            </table>
+        </div>
+        
+        <div id="all-tab" class="tab-panel" style="display: none;">
+            <table id="allTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Rent/Day</th>
+                        <th>Status</th>
+                        <th>Extra</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="allBody"></tbody>
+            </table>
+        </div>
+    </div>
+    
+    <h2>Add New Vehicle</h2>
+    <form id="addForm">
+        <input type="text" id="brand" placeholder="Brand" required>
+        <input type="text" id="model" placeholder="Model" required>
+        <select id="type">
+            <option>CAR</option>
+            <option>BIKE</option>
+        </select>
+        <input type="number" id="rent" placeholder="Rent per Day" required>
+        <input type="number" id="extra" placeholder="Extra Info" required>
+        <button type="button" onclick="addVehicle()">Add Vehicle</button>
+    </form>
+    
+    <script src="app.js"></script>
+</body>
+</html>
