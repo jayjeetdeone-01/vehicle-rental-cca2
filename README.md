@@ -260,3 +260,155 @@ It is ideal as a **college-level project** to show **full OOP understanding and 
 
 ---
 
+---
+
+# 🚀 CCA2: CI/CD Pipeline and Deployment
+
+## 1. Project Overview
+
+As part of CCA2, this project demonstrates a DevOps workflow using GitHub, Jenkins, Docker, Docker Hub, AWS EC2, Kubernetes, and Minikube.
+
+The original Vehicle Rental System is a C++ console-based project. For this assignment, a frontend version is packaged into a Docker container using NGINX and deployed to a local Kubernetes cluster using Minikube.
+
+## 2. Technologies Used
+
+- **GitHub:** Stores the project source code and configuration files.
+- **Jenkins:** Runs the configured CI/CD pipeline and verification stages.
+- **AWS EC2:** Hosts the Jenkins server.
+- **Docker:** Builds and runs the frontend container image.
+- **Docker Hub:** Stores the Docker image.
+- **Kubernetes:** Manages the containerized application.
+- **Minikube:** Provides the local Kubernetes environment.
+- **NGINX:** Serves the frontend files.
+
+## 3. Repository Structure
+
+The repository includes the following files:
+
+```text
+vehicle-rental-cca2/
+├── frontend/
+│   ├── index.html
+│   ├── app.js
+│   └── style.css
+├── k8s/
+│   ├── deployment.yaml
+│   └── service.yaml
+├── Dockerfile
+├── Jenkinsfile
+└── README.md
+```
+
+Additional files from the original C++ project may also be present.
+
+## 4. Dockerfile
+
+The Dockerfile defines how the frontend container image is built.
+
+```dockerfile
+FROM nginx:alpine
+COPY frontend/ /usr/share/nginx/html/
+EXPOSE 80
+```
+
+**Explanation:**
+
+1. `FROM nginx:alpine` selects the lightweight NGINX base image.
+2. `COPY frontend/ /usr/share/nginx/html/` copies the frontend files into the web server directory.
+3. `EXPOSE 80` documents the port used by NGINX inside the container.
+
+The resulting image can be used to run the frontend in a Docker container.
+
+## 5. Docker Hub Image
+
+**Repository:** `jayjeet3005/vehicle_rental_system_cca2`
+
+**Tag:** `1.0`
+
+Docker was used to build the frontend image and push it to Docker Hub.
+
+During the push operation, the message `Layer already exists` indicated that the corresponding layer was already present in the registry and did not need to be uploaded again.
+
+Docker Hub provides a central location to store and retrieve the project image.
+
+## 6. Jenkins Setup on AWS EC2
+
+Jenkins was hosted on an AWS EC2 instance and configured to use the GitHub repository as its source.
+
+The Jenkins job was configured as a Pipeline with the following settings:
+
+- Repository URL: `https://github.com/jayjeetdeone-01/vehicle-rental-cca2`
+- Branch: `main`
+- Pipeline script path: `Jenkinsfile`
+
+The Jenkins pipeline was executed, and its results were checked using the Jenkins build page and Console Output.
+
+## 7. Jenkins Pipeline Stages
+
+The Jenkinsfile contains the following stages:
+
+| Stage | Purpose |
+|---|---|
+| Checkout | Represents the source-code checkout stage. |
+| Build and Test | Checks that the required frontend HTML file exists. |
+| Docker Check | Checks Docker availability and version. |
+| Push Image | Informational placeholder; the Docker image push is performed separately. |
+| Deploy to Minikube | Informational placeholder; deployment is performed separately on local Minikube. |
+| Verify | Lists the frontend files and checks for the Kubernetes manifest files. |
+
+The current Jenkins pipeline automates project verification. The Docker Hub push and Minikube deployment are not automatically executed by Jenkins in the current implementation.
+
+## 8. Kubernetes Deployment
+
+The `k8s/` directory contains two configuration files.
+
+### Deployment Manifest
+
+The `deployment.yaml` file specifies the container image and the desired application Pod configuration. Kubernetes uses the Deployment to create and maintain the application Pods.
+
+### Service Manifest
+
+The `service.yaml` file provides a stable network endpoint to access the application through the Kubernetes cluster.
+
+Together, the Deployment and Service manifests define how the frontend runs and how it can be accessed within the Minikube environment.
+
+## 9. Application Access and Verification
+
+The Kubernetes manifests were applied to the local Minikube cluster.
+
+The deployment status and Service URL were checked, and the frontend was opened in a web browser through the generated Minikube URL.
+
+This verified that the frontend was accessible in the local Kubernetes environment.
+
+**Implementation note:** The containerized version serves the frontend using NGINX. It does not currently run the original C++ console application or connect to its database.
+
+## 10. Second Pipeline Run
+
+For the subsequent Jenkins run, the Jenkinsfile was updated to use Linux-compatible shell commands because Jenkins was running on an AWS Linux server.
+
+Windows-specific `bat` commands were replaced with `sh` commands.
+
+The updated pipeline was executed again, and the build result and Console Output were checked. The successful result confirmed that the configured verification steps completed without a reported failure.
+
+## 11. Screenshots and Evidence
+
+The project demonstration includes screenshots of:
+
+1. Docker images.
+2. Docker push confirmation.
+3. Kubernetes Deployment and Service manifests.
+4. AWS EC2 instance.
+5. Minikube Service URL.
+6. Running frontend webpage.
+7. Docker Hub repositories.
+8. The project Docker Hub repository and image tag `1.0`.
+9. GitHub repository and project files.
+10. Jenkins pipeline.
+11. Jenkins build process.
+12. Jenkins Console Output and successful build result.
+
+## 12. Conclusion
+
+This assignment provided practical experience with Docker containerization, Docker Hub image management, GitHub source-code management, Jenkins pipeline verification, AWS EC2 infrastructure, and Kubernetes deployment using Minikube.
+
+The project demonstrates how these tools contribute to a DevOps workflow while distinguishing between automated Jenkins verification and the separately performed image push and local Kubernetes deployment.
